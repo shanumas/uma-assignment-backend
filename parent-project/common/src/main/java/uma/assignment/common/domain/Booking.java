@@ -1,4 +1,4 @@
-package uma.assignment.core.domain;
+package uma.assignment.common.domain;
 
 import java.io.Serializable;
 
@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+@EntityScan("uma.assignment.core.domain")
 @Entity
 public class Booking implements Serializable{
 	

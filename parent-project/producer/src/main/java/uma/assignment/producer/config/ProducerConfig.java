@@ -14,36 +14,49 @@
  * limitations under the License.
  */
 
-package uma.assignment.producer;
+package uma.assignment.producer.config;
 
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import uma.assignment.core.rabbitmq.config.MessageKeys;
+import uma.assignment.common.messages.keys.MessageKeys;
 
+@Configuration
 public class ProducerConfig {
-	
-	@Bean
-    public TopicExchange eventExchange() {
-        
+    
+    @Bean
+    public Queue queue() {
+        return new Queue(MessageKeys.BOOKING_ADD_QUEUE);
+    }
+
+    @Bean
+    public TopicExchange exchange() {
         return new TopicExchange(MessageKeys.BOOKING_EXCHANGE_NAME);
     }
-    
+
     @Bean
-    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
-        
+    public Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(MessageKeys.ROUTINGKEY_ADD);
+    }
+
+    @Bean
+    public MessageConverter converter() {
         return new Jackson2JsonMessageConverter();
     }
-    
+
     @Bean
-    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
-        
+    public AmqpTemplate template(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
-        
+        rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
     }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uma.assignment.producer;
+package uma.assignment.consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,9 +22,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("uma.assignment")
-public class ProducerApplication {
+public class ConsumerApplication {
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(ProducerApplication.class, args);
+		SpringApplication.run(ConsumerApplication.class, args);
 	}
+
 }

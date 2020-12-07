@@ -1,4 +1,4 @@
-package uma.assignment.core.rabbitmq.config;
+package uma.assignment.common.messages.keys;
 
 public class MessageKeys {
 	
@@ -11,6 +11,8 @@ public class MessageKeys {
 	
 	public static final String BOOKING_ADD_QUEUE = "uma.assignment.queue.booking.add";
 	public static final String BOOKING_EDIT_QUEUE = "uma.assignment.queue.booking.edit";
-	public static final String BOOKING_DELETE_QUEUE = "uma.assignment.queue.booking.delete";	
+	public static final String BOOKING_DELETE_QUEUE = "uma.assignment.queue.booking.delete";
+	
+	public static final String ROUTINGKEY_ADD = "uma.assignment.queue.booking.key.add";
 
 }
