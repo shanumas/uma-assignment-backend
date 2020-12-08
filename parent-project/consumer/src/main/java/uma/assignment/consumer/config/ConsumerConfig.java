@@ -15,29 +15,39 @@ import uma.assignment.consumer.service.BookingService;
 
 @Configuration
 public class ConsumerConfig {
-	
+
 	@Autowired
-    private ConnectionFactory connectionFactory;
-	
+	private ConnectionFactory connectionFactory;
+
 	@Autowired
 	BookingService bookingService;
-	
+
 	@RabbitListener(queues = MessageKeys.BOOKING_ADD_QUEUE, containerFactory = "rabbitListenerContainerFactory")
-    public void processAdvisory(Booking booking) {
-		bookingService.saveOrUpdate(booking);	
-    }
-	
+	public void processAdvisory1(Booking booking) {
+		bookingService.saveOrUpdate(booking);
+	}
+
+	@RabbitListener(queues = MessageKeys.BOOKING_EDIT_QUEUE, containerFactory = "rabbitListenerContainerFactory")
+	public void processAdvisory2(Booking booking) {
+		bookingService.saveOrUpdate(booking);
+	}
+
+	@RabbitListener(queues = MessageKeys.BOOKING_DELETE_QUEUE, containerFactory = "rabbitListenerContainerFactory")
+	public void processAdvisory3(String string) {
+		bookingService.delete(Long.parseLong(string));
+	}
+
 	@Bean
-    public MessageConverter converter() {
-        return new Jackson2JsonMessageConverter();
-    }
-	
+	public MessageConverter converter() {
+		return new Jackson2JsonMessageConverter();
+	}
+
 	@Bean
 	public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-	    SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-	    factory.setConnectionFactory(this.connectionFactory);
-	    factory.setMessageConverter(converter());
-	    return factory; 
+		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+		factory.setConnectionFactory(this.connectionFactory);
+		factory.setMessageConverter(converter());
+		return factory;
 	}
 
 }

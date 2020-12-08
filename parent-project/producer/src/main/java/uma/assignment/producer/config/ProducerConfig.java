@@ -25,6 +25,7 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,18 +35,35 @@ import uma.assignment.common.messages.keys.MessageKeys;
 public class ProducerConfig {
     
     @Bean
-    public Queue queue() {
+    public Queue queue1() {
         return new Queue(MessageKeys.BOOKING_ADD_QUEUE);
+    }    
+    @Bean
+    public Binding binding1(@Qualifier("queue1")Queue queue1, TopicExchange exchange) {
+        return BindingBuilder.bind(queue1).to(exchange).with(MessageKeys.ROUTINGKEY_ADD);
+    }
+    
+    @Bean
+    public Queue queue2() {
+        return new Queue(MessageKeys.BOOKING_EDIT_QUEUE);
+    }    
+    @Bean
+    public Binding binding2(@Qualifier("queue2")Queue queue2, TopicExchange exchange) {
+        return BindingBuilder.bind(queue2).to(exchange).with(MessageKeys.ROUTINGKEY_EDIT);
+    }
+    
+    @Bean
+    public Queue queue3() {
+        return new Queue(MessageKeys.BOOKING_DELETE_QUEUE);
+    }    
+    @Bean
+    public Binding binding3(@Qualifier("queue3")Queue queue3, TopicExchange exchange) {
+        return BindingBuilder.bind(queue3).to(exchange).with(MessageKeys.ROUTINGKEY_DELETE);
     }
 
     @Bean
     public TopicExchange exchange() {
         return new TopicExchange(MessageKeys.BOOKING_EXCHANGE_NAME);
-    }
-
-    @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(MessageKeys.ROUTINGKEY_ADD);
     }
 
     @Bean

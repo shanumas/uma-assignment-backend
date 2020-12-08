@@ -12,18 +12,26 @@ import uma.assignment.common.domain.Booking;
 import uma.assignment.consumer.service.BookingService;
 
 @RestController
-public class BookingController implements WebMvcConfigurer {
-	
+public class ConsumerController implements WebMvcConfigurer {
+
 	@Autowired
 	BookingService bookingService;
-	
+
 	@GetMapping("/bookings")
-	public List<Booking> bookings()
-	{
+	public List<Booking> bookings() {
 		return bookingService.findAll();
-		
 	}
-	
+
+//	@PostMapping("/update")
+//	private Booking update(@RequestBody Booking booking) {
+//		return bookingService.saveOrUpdate(booking);
+//	}
+//
+//	@DeleteMapping("/delete/{bookid}")
+//	private void deleteBook(@PathVariable("bookid") long bookid) {
+//		bookingService.delete(bookid);
+//	}
+
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedMethods("*");

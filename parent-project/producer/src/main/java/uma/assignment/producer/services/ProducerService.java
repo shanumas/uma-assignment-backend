@@ -21,15 +21,22 @@ public class ProducerService {
 	@Autowired
 	private TopicExchange eventExchange;
 
-	public Booking createBooking(Booking booking) {
-
-		booking.setId(System.currentTimeMillis());
-
+	public Booking add(Booking booking) {
 		LOGGER.debug("Sending order with floowing id to queue:", booking.getId());
-
 		rabbitTemplate.convertAndSend(eventExchange.getName(), MessageKeys.ROUTINGKEY_ADD, booking);
-
 		return booking;
+	}
+
+	public Booking edit(Booking booking) {
+		LOGGER.debug("Sending order with floowing id to queue:", booking.getId());
+		rabbitTemplate.convertAndSend(eventExchange.getName(), MessageKeys.ROUTINGKEY_EDIT, booking);
+		return booking;
+	}
+
+	public long delete(long id) {
+		LOGGER.debug("Sending order with floowing id to queue:", id);
+		rabbitTemplate.convertAndSend(eventExchange.getName(), MessageKeys.ROUTINGKEY_DELETE, id);
+		return id;
 	}
 
 }
