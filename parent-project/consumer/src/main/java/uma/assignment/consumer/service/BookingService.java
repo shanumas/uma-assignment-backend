@@ -11,28 +11,27 @@ import uma.assignment.consumer.repository.BookingRepository;
 
 @Component("bookingService")
 public class BookingService {
-	
+
 	private BookingRepository bookingRepository;
-	
+
 	@Autowired
 	public BookingService(BookingRepository bookingRepository) {
 		this.bookingRepository = bookingRepository;
 	}
-	
-	public List<Booking> findAll(){
+
+	public List<Booking> findAll() {
 		List<Booking> bookings = new ArrayList<Booking>();
 		bookingRepository.findAll().forEach(bookings::add);
-		return bookings;	
+		return bookings;
 	}
-	
+
 	public Booking saveOrUpdate(Booking booking) {
 		bookingRepository.save(booking);
 		return booking;
 	}
-	
-	public void delete(long id)   
-	{  
-		bookingRepository.deleteById(id);  
+
+	public void delete(long id) {
+		bookingRepository.deleteById(id);
 	}
 
 }

@@ -33,49 +33,52 @@ import uma.assignment.common.messages.keys.MessageKeys;
 
 @Configuration
 public class ProducerConfig {
-    
-    @Bean
-    public Queue queue1() {
-        return new Queue(MessageKeys.BOOKING_ADD_QUEUE);
-    }    
-    @Bean
-    public Binding binding1(@Qualifier("queue1")Queue queue1, TopicExchange exchange) {
-        return BindingBuilder.bind(queue1).to(exchange).with(MessageKeys.ROUTINGKEY_ADD);
-    }
-    
-    @Bean
-    public Queue queue2() {
-        return new Queue(MessageKeys.BOOKING_EDIT_QUEUE);
-    }    
-    @Bean
-    public Binding binding2(@Qualifier("queue2")Queue queue2, TopicExchange exchange) {
-        return BindingBuilder.bind(queue2).to(exchange).with(MessageKeys.ROUTINGKEY_EDIT);
-    }
-    
-    @Bean
-    public Queue queue3() {
-        return new Queue(MessageKeys.BOOKING_DELETE_QUEUE);
-    }    
-    @Bean
-    public Binding binding3(@Qualifier("queue3")Queue queue3, TopicExchange exchange) {
-        return BindingBuilder.bind(queue3).to(exchange).with(MessageKeys.ROUTINGKEY_DELETE);
-    }
 
-    @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(MessageKeys.BOOKING_EXCHANGE_NAME);
-    }
+	@Bean
+	public Queue queue1() {
+		return new Queue(MessageKeys.BOOKING_ADD_QUEUE);
+	}
 
-    @Bean
-    public MessageConverter converter() {
-        return new Jackson2JsonMessageConverter();
-    }
+	@Bean
+	public Binding binding1(@Qualifier("queue1") Queue queue1, TopicExchange exchange) {
+		return BindingBuilder.bind(queue1).to(exchange).with(MessageKeys.ROUTINGKEY_ADD);
+	}
 
-    @Bean
-    public AmqpTemplate template(ConnectionFactory connectionFactory) {
-        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(converter());
-        return rabbitTemplate;
-    }
+	@Bean
+	public Queue queue2() {
+		return new Queue(MessageKeys.BOOKING_EDIT_QUEUE);
+	}
+
+	@Bean
+	public Binding binding2(@Qualifier("queue2") Queue queue2, TopicExchange exchange) {
+		return BindingBuilder.bind(queue2).to(exchange).with(MessageKeys.ROUTINGKEY_EDIT);
+	}
+
+	@Bean
+	public Queue queue3() {
+		return new Queue(MessageKeys.BOOKING_DELETE_QUEUE);
+	}
+
+	@Bean
+	public Binding binding3(@Qualifier("queue3") Queue queue3, TopicExchange exchange) {
+		return BindingBuilder.bind(queue3).to(exchange).with(MessageKeys.ROUTINGKEY_DELETE);
+	}
+
+	@Bean
+	public TopicExchange exchange() {
+		return new TopicExchange(MessageKeys.BOOKING_EXCHANGE_NAME);
+	}
+
+	@Bean
+	public MessageConverter converter() {
+		return new Jackson2JsonMessageConverter();
+	}
+
+	@Bean
+	public AmqpTemplate template(ConnectionFactory connectionFactory) {
+		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+		rabbitTemplate.setMessageConverter(converter());
+		return rabbitTemplate;
+	}
 
 }

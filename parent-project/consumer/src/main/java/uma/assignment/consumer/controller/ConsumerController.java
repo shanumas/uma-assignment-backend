@@ -22,16 +22,6 @@ public class ConsumerController implements WebMvcConfigurer {
 		return bookingService.findAll();
 	}
 
-//	@PostMapping("/update")
-//	private Booking update(@RequestBody Booking booking) {
-//		return bookingService.saveOrUpdate(booking);
-//	}
-//
-//	@DeleteMapping("/delete/{bookid}")
-//	private void deleteBook(@PathVariable("bookid") long bookid) {
-//		bookingService.delete(bookid);
-//	}
-
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedMethods("*");

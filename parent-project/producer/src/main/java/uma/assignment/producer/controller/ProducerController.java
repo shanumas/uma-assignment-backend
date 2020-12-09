@@ -25,14 +25,14 @@ public class ProducerController implements WebMvcConfigurer {
 		Booking bookingCreated = producerService.add(booking);
 		return bookingCreated;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/edit")
 	public Booking book(@RequestBody Booking booking) {
 		Booking bookingCreated = producerService.edit(booking);
 		return bookingCreated;
 	}
-	
+
 	@DeleteMapping("/delete/{bookingid}")
 	private void delete(@PathVariable("bookingid") long bookid) {
 		producerService.delete(bookid);
