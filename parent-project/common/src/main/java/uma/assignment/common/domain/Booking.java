@@ -24,12 +24,77 @@ public class Booking implements Serializable {
 	@GeneratedValue
 	private Long id;
 	private String name;
+	private String contactNumber;
+	private String pickupTime;
+	private boolean asap;
+	private String waitingTime;
+	private int passengers;
+	private String price;
+	private String rating;
+	private String createdOn;
+	private String modifiedOn;
+	
+	public String getPickupTime() {
+		return pickupTime;
+	}
+
+	public void setPickupTime(String pickupTime) {
+		this.pickupTime = pickupTime;
+	}
+
+	public String getWaitingTime() {
+		return waitingTime;
+	}
+
+	public void setWaitingTime(String waitingTime) {
+		this.waitingTime = waitingTime;
+	}
+
+	public int getPassengers() {
+		return passengers;
+	}
+
+	public void setPassengers(int passengers) {
+		this.passengers = passengers;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public String getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getModifiedOn() {
+		return modifiedOn;
+	}
+
+	public void setModifiedOn(String modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
 
 	public Booking() {
 
 	}
 
-	public Booking(@JsonProperty("id") long id, @JsonProperty("name") String name) {
+	public Booking(long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -53,6 +118,22 @@ public class Booking implements Serializable {
 	@Override
 	public String toString() {
 		return "Booking{" + "id=" + id + ", name=" + name + "}";
+	}
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+	public boolean isAsap() {
+		return asap;
+	}
+
+	public void setAsap(boolean asap) {
+		this.asap = asap;
 	}
 
 }
