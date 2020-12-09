@@ -78,6 +78,7 @@ public class ProducerConfig {
 	public AmqpTemplate template(ConnectionFactory connectionFactory) {
 		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
 		rabbitTemplate.setMessageConverter(converter());
+		//rabbitTemplate.start();
 		return rabbitTemplate;
 	}
 

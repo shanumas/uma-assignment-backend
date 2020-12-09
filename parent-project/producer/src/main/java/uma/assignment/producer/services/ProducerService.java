@@ -15,26 +15,31 @@ public class ProducerService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProducerService.class);
 
-	@Autowired
-	private RabbitTemplate rabbitTemplate;
 
-	@Autowired
+	private RabbitTemplate rabbitTemplate;
 	private TopicExchange eventExchange;
+	
+	@Autowired
+	public ProducerService(RabbitTemplate rabbitTemplate, TopicExchange eventExchange) {
+		this.rabbitTemplate = rabbitTemplate;
+		this.eventExchange = eventExchange;
+		rabbitTemplate.convertAndSend(eventExchange.getName(), "EMPTY_KEY", "");
+	}
 
 	public Booking add(Booking booking) {
-		LOGGER.debug("Sending order with floowing id to queue:", booking.getId());
+		LOGGER.debug("Sending booking with fllowing id to queue:", booking.getId());
 		rabbitTemplate.convertAndSend(eventExchange.getName(), MessageKeys.ROUTINGKEY_ADD, booking);
 		return booking;
 	}
 
 	public Booking edit(Booking booking) {
-		LOGGER.debug("Sending order with floowing id to queue:", booking.getId());
+		LOGGER.debug("Sending booking with fllowing id to queue:", booking.getId());
 		rabbitTemplate.convertAndSend(eventExchange.getName(), MessageKeys.ROUTINGKEY_EDIT, booking);
 		return booking;
 	}
 
 	public long delete(long id) {
-		LOGGER.debug("Sending order with floowing id to queue:", id);
+		LOGGER.debug("Sending booking with fllowing id to queue:", id);
 		rabbitTemplate.convertAndSend(eventExchange.getName(), MessageKeys.ROUTINGKEY_DELETE, id);
 		return id;
 	}
