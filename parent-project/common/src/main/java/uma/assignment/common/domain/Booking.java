@@ -112,11 +112,6 @@ public class Booking implements Serializable {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "Booking{" + "id=" + id + ", name=" + name + "}";
-	}
-
 	public String getContactNumber() {
 		return contactNumber;
 	}
