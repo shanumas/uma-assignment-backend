@@ -26,7 +26,7 @@ public class Booking implements Serializable {
 	private boolean asap;
 	private String waitingTime;
 	private int passengers;
-	private String price;
+	private double price;
 	private int rating;
 	private String createdOn;
 	private String modifiedOn;
@@ -55,11 +55,11 @@ public class Booking implements Serializable {
 		this.passengers = passengers;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
