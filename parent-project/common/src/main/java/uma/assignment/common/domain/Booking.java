@@ -2,14 +2,11 @@ package uma.assignment.common.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @EntityScan("uma.assignment.core.domain")
 @Entity
@@ -30,7 +27,7 @@ public class Booking implements Serializable {
 	private String waitingTime;
 	private int passengers;
 	private String price;
-	private String rating;
+	private int rating;
 	private String createdOn;
 	private String modifiedOn;
 	
@@ -66,11 +63,11 @@ public class Booking implements Serializable {
 		this.price = price;
 	}
 
-	public String getRating() {
+	public int getRating() {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 
